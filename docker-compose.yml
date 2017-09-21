@@ -1,0 +1,20 @@
+version: '2'
+services:
+  go-server:
+    image: gocd/gocd-server:v17.10.0
+    ports:
+      - '8153:8153'
+      - '8154:8154'
+    volumes:
+      - ./server_home:/godata
+
+  go-agent:
+    build:
+      context: .
+      dockerfile: 'Dockerfile.go-agent'
+    depends_on:
+      - go-server
+    environment:
+      AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
+      AGENT_AUTO_REGISTER_RESOURCES: 'build-agent'
+      GO_SERVER_URL: https://go-server:8154/go
