@@ -1,7 +1,14 @@
 # GoCD setup for workshop
 
-docker-compose build
-docker-compose up
+This codebase sets up GoCD containers to compile and publish a
+docker image from a sample application
 
-Note: if you see an error 'Cannot connect to the Docker daemon.' in a pipeline,
-please run this command in that Go agent 'chown go:go /var/run/docker.sock'
+
+### Commands:
+
+ docker-compose build <br/>
+ docker-compose up <br/>
+
+## Note: 
+If you face issues with docker go agent throwing this error 'Cannot connect to the Docker daemon.',
+please run this command in that Go agent ```chown go:go /var/run/docker.sock```
