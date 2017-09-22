@@ -1,4 +1,3 @@
-environments:
 pipelines:
   compile:
     group: contacts-app
@@ -23,6 +22,9 @@ pipelines:
   package:
     group: contacts-app
     materials:
+      compilation:
+        pipeline: compile
+        stage: build
       mygit:  # this is the name of material
         # says about type of material and url at once
         git: https://github.com/ckaushik/contacts-ui.git
@@ -31,6 +33,11 @@ pipelines:
           jobs:
             build: # name of the job
               tasks:
+                - fetch:
+                   pipeline: compile
+                   stage: build
+                   job: build
+                   source: build
                 - exec: # indicates type of task
                    command: bash
                    arguments:

@@ -16,7 +16,7 @@ services:
       - go-server
     environment:
       AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
-      AGENT_AUTO_REGISTER_RESOURCES: 'yarn'
+      AGENT_AUTO_REGISTER_RESOURCES: yarn
       GO_SERVER_URL: https://go-server:8154/go
 
   go-agent-docker:
@@ -29,5 +29,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
-      AGENT_AUTO_REGISTER_RESOURCES: 'docker'
+      AGENT_AUTO_REGISTER_RESOURCES: docker
       GO_SERVER_URL: https://go-server:8154/go
