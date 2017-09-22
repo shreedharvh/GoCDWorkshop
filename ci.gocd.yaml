@@ -16,3 +16,6 @@ pipelines:
                    arguments:
                      - "-c"
                      - "yarn install --production && yarn build"
+              artifacts:
+                - build:
+                    source: dist

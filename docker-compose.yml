@@ -8,13 +8,26 @@ services:
     volumes:
       - ./server_home:/godata
 
-  go-agent:
+  go-agent-yarn:
     build:
       context: .
-      dockerfile: 'Dockerfile.go-agent'
+      dockerfile: 'Dockerfile.go-agent-yarn'
     depends_on:
       - go-server
     environment:
       AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
-      AGENT_AUTO_REGISTER_RESOURCES: 'build-agent'
+      AGENT_AUTO_REGISTER_RESOURCES: 'yarn'
+      GO_SERVER_URL: https://go-server:8154/go
+
+  go-agent-docker:
+    build:
+      context: .
+      dockerfile: 'Dockerfile.go-agent-docker'
+    depends_on:
+      - go-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
+      AGENT_AUTO_REGISTER_RESOURCES: 'docker'
       GO_SERVER_URL: https://go-server:8154/go
