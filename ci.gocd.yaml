@@ -18,4 +18,5 @@ pipelines:
                      - "yarn install --production && yarn build"
               artifacts:
                 - build:
-                    source: dist
+                    source: build
+          resources: yarn
