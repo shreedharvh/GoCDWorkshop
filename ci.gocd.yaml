@@ -18,7 +18,7 @@ pipelines:
               artifacts:
                 - build:
                     source: build
-          resources: yarn
+              resources: yarn
   package:
     group: contacts-app
     materials:
@@ -43,4 +43,4 @@ pipelines:
                    arguments:
                      - "-c"
                      - "docker build -t contacts-ui:${GO_PIPELINE_LABEL} -f Dockerfile.build ."
-          resources: docker
+              resources: docker
