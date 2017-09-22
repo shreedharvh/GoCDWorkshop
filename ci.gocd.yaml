@@ -1,9 +1,4 @@
 environments:
-  example:
-    environment_variables:
-      EXAMPLE_DEPLOYMENT: testing
-    pipelines:
-      - compile
 pipelines:
   compile:
     group: contacts-app
@@ -20,4 +15,4 @@ pipelines:
                    command: bash
                    arguments:
                      - "-c"
-                     - "yarn install --production &amp;&amp; yarn build"
+                     - "yarn install --production && yarn build"
