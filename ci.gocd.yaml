@@ -44,5 +44,13 @@ pipelines:
                    arguments:
                      - "-c"
                      - "docker build -t contacts-ui:${GO_PIPELINE_LABEL} -f Dockerfile.build ."
+                - exec: # indicates type of task
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "echo contacts-ui:${GO_PIPELINE_LABEL} > contacts-ui-version.txt"
+              artifacts:
+                - build:
+                    source: contacts-ui-version.txt
               resources:
                 - docker
