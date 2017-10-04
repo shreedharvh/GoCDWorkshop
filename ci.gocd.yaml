@@ -54,6 +54,27 @@ pipelines:
                     source: contacts-ui-version.txt
               resources:
                 - docker
+      - publish:
+          jobs:
+            publish:
+              tasks:
+                - fetch:
+                   stage: build
+                   job: build
+                   is_file: yes
+                   source: contacts-ui-version.txt
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "docker tag `cat contacts-ui-version.txt` $DOCKERHUB_UBER/`cat contacts-ui-version.txt`"
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "docker push $DOCKERHUB_UBER/`cat contacts-ui-version.txt`"
+              resources:
+                - docker
   deploy:
     group: contacts-app
     materials:
