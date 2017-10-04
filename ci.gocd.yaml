@@ -1,3 +1,10 @@
+environments:
+  docker:
+    environment_variables:
+      DOCKERHUB_USER: kaushikc
+    pipelines:
+      - package
+
 pipelines:
   compile:
     group: contacts-app
@@ -26,8 +33,7 @@ pipelines:
       compilation:
         pipeline: compile
         stage: build
-      mygit:  # this is the name of material
-        # says about type of material and url at once
+      mygit:
         git: https://github.com/ckaushik/contacts-ui.git
     stages:
       - build: # name of stage
@@ -67,12 +73,12 @@ pipelines:
                    command: bash
                    arguments:
                      - "-c"
-                     - "docker tag `cat contacts-ui-version.txt` $DOCKERHUB_UBER/`cat contacts-ui-version.txt`"
+                     - "docker tag `cat contacts-ui-version.txt` ${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
                 - exec:
                    command: bash
                    arguments:
                      - "-c"
-                     - "docker push $DOCKERHUB_UBER/`cat contacts-ui-version.txt`"
+                     - "docker push ${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
               resources:
                 - docker
   deploy:

@@ -8,6 +8,12 @@
   </config-repos>
   <pipelines group="contacts-app" />
   <environments>
-    <environment name="example" />
+    <environment name="example">
+      <environmentvariables>
+        <variable name="DOCKERHUB_USER">
+          <value>kaushikc</value>
+        </variable>
+      </environmentvariables>
+    </environment>
   </environments>
 </cruise>
