@@ -5,7 +5,7 @@ docker image from a sample application
 
 ### Setup:
 
-Change DOCKERHUB_USER in ci.gocd.yaml
+Change DOCKERHUB_USER in ci.gocd.yaml <br/>
 Update your dockerhub credentials in ./files/go-agent/docker-config.json
 
 ### Commands:
