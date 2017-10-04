@@ -54,3 +54,28 @@ pipelines:
                     source: contacts-ui-version.txt
               resources:
                 - docker
+  deploy:
+    group: contacts-app
+    materials:
+      compilation:
+        pipeline: package
+        stage: build
+      mygit:
+        git: https://github.com/ckaushik/contacts-ui.git
+    stages:
+      - deploy:
+          jobs:
+            build:
+              tasks:
+                - fetch:
+                   pipeline: package
+                   stage: build
+                   job: build
+                   source: contacts-ui-version.txt
+                - exec:
+                   command: bash
+                   arguments:
+                     - "-c"
+                     - "kubectl apply -f deployment.yaml"
+              resources:
+                - deployer
