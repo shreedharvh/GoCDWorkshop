@@ -1,9 +1,8 @@
 environments:
-  docker:
-    environment_variables:
-      DOCKERHUB_USER: kaushikc
+  contacts-deployment:
     pipelines:
       - package
+      - deploy
 
 pipelines:
   compile:
@@ -98,11 +97,12 @@ pipelines:
                    pipeline: package
                    stage: build
                    job: build
+                   is_file: yes
                    source: contacts-ui-version.txt
                 - exec:
                    command: bash
                    arguments:
                      - "-c"
-                     - "kubectl apply -f deployment.yaml"
+                     - "kubectl set image deployment/hello-minikube  hello-minikube=${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
               resources:
                 - deployer

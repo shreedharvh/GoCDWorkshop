@@ -8,10 +8,13 @@
   </config-repos>
   <pipelines group="contacts-app" />
   <environments>
-    <environment name="example">
+    <environment name="contacts-deployment">
       <environmentvariables>
         <variable name="DOCKERHUB_USER">
-          <value>kaushikc</value>
+          <value>FIXME</value>
+        </variable>
+        <variable name="DOCKERHUB_PASSWORD" secure="true">
+          <encryptedValue>hHTFTqvENiY=</encryptedValue>
         </variable>
       </environmentvariables>
     </environment>
