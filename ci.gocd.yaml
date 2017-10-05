@@ -88,11 +88,9 @@ pipelines:
   frontend-deploy:
     group: contacts-app
     materials:
-      compilation:
+      packaging:
         pipeline: frontend-package
-        stage: build
-      mygit:
-        git: https://github.com/ckaushik/contacts-ui.git
+        stage: publish
     stages:
       - deploy:
           jobs:
