@@ -42,6 +42,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./files/go-agent/kube-config/:/home/go/.minikube
+      - ./files/go-agent/kube-config/kube-config.yml:/home/go/.kube/config
     environment:
       AGENT_AUTO_REGISTER_KEY: '402d5e4d-4e72-4014-aa49-cca107d1bf3d'
       AGENT_AUTO_REGISTER_RESOURCES: deployer
