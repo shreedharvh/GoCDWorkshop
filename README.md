@@ -3,15 +3,14 @@
 This codebase sets up GoCD containers to compile and publish a
 docker image from a sample application
 
-### Setup:
-
-Change DOCKERHUB_USER in ci.gocd.yaml <br/>
-Update your dockerhub credentials in ./files/go-agent/docker-config.json
-
 ### Commands:
 
  docker-compose build <br/>
  docker-compose up <br/>
+
+### Post that
+
+ Change DOCKERHUB_USER and DOCKERHUB_PASSWORD in your go-server http://localhost:8153/go/environments/contacts-deployment/show
 
 ## Note: 
 If you face issues with docker go agent throwing this error 'Cannot connect to the Docker daemon.',
