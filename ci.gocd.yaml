@@ -1,11 +1,11 @@
 environments:
   contacts-deployment:
     pipelines:
-      - package
-      - deploy
+      - frontend-package
+      - frontend-deploy
 
 pipelines:
-  compile:
+  frontend-compile:
     group: contacts-app
     materials:
       mygit:  # this is the name of material
@@ -26,30 +26,30 @@ pipelines:
                     source: build
               resources:
                 - yarn
-  package:
+  frontend-package:
     group: contacts-app
     materials:
       compilation:
-        pipeline: compile
+        pipeline: frontend-compile
         stage: build
       mygit:
         git: https://github.com/ckaushik/contacts-ui.git
     stages:
-      - build: # name of stage
+      - build:
           jobs:
-            build: # name of the job
+            build:
               tasks:
                 - fetch:
-                   pipeline: compile
+                   pipeline: frontend-compile
                    stage: build
                    job: build
                    source: build
-                - exec: # indicates type of task
+                - exec:
                    command: bash
                    arguments:
                      - "-c"
                      - "docker build -t contacts-ui:${GO_PIPELINE_LABEL} -f Dockerfile.build ."
-                - exec: # indicates type of task
+                - exec:
                    command: bash
                    arguments:
                      - "-c"
@@ -85,11 +85,11 @@ pipelines:
                      - "docker push ${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
               resources:
                 - docker
-  deploy:
+  frontend-deploy:
     group: contacts-app
     materials:
       compilation:
-        pipeline: package
+        pipeline: frontend-package
         stage: build
       mygit:
         git: https://github.com/ckaushik/contacts-ui.git
@@ -99,7 +99,7 @@ pipelines:
             build:
               tasks:
                 - fetch:
-                   pipeline: package
+                   pipeline: frontend-package
                    stage: build
                    job: build
                    is_file: yes
