@@ -108,6 +108,6 @@ pipelines:
                    command: bash
                    arguments:
                      - "-c"
-                     - "kubectl set image deployment/hello-minikube  hello-minikube=${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
+                     - "KUBECONFIG=${KUBECONFIG} kubectl set image deployment/hello-minikube  hello-minikube=${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
               resources:
                 - deployer

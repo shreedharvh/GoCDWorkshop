@@ -13,6 +13,9 @@
         <variable name="DOCKERHUB_USER">
           <value>FIXME</value>
         </variable>
+        <variable name="KUBECONFIG">
+          <value>~/.minikube/kube-config.yml</value>
+        </variable>
         <variable name="DOCKERHUB_PASSWORD" secure="true">
           <encryptedValue>hHTFTqvENiY=</encryptedValue>
         </variable>
