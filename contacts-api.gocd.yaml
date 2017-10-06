@@ -1,5 +1,5 @@
 environments:
-  contacts-deployment:
+  contacts-api-deployment:
     pipelines:
       - api-package
       - api-deploy
