@@ -5,10 +5,23 @@
     <config-repo pluginId="yaml.config.plugin" id="gocd-yaml-config-example">
       <git url="https://github.com/ckaushik/GoCDWorkshop.git" />
     </config-repo>
+    <config-repo pluginId="yaml.config.plugin" id="contacts-api-config">
+      <git url="https://github.com/ckaushik/contacts-api.git" />
+    </config-repo>
   </config-repos>
   <pipelines group="contacts-app" />
   <environments>
     <environment name="contacts-deployment">
+      <environmentvariables>
+        <variable name="DOCKERHUB_USER">
+          <value>FIXME</value>
+        </variable>
+        <variable name="DOCKERHUB_PASSWORD" secure="true">
+          <encryptedValue>hHTFTqvENiY=</encryptedValue>
+        </variable>
+      </environmentvariables>
+    </environment>
+    <environment name="contacts-api-deployment" >
       <environmentvariables>
         <variable name="DOCKERHUB_USER">
           <value>FIXME</value>
