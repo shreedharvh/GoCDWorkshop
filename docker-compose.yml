@@ -46,5 +46,4 @@ services:
     environment:
       AGENT_AUTO_REGISTER_KEY: '402d5e4d-4e72-4014-aa49-cca107d1bf3d'
       AGENT_AUTO_REGISTER_RESOURCES: deployer
-      AGENT_AUTO_REGISTER_ENVIRONMENTS: contacts-deployment
       GO_SERVER_URL: https://go-server:8154/go
