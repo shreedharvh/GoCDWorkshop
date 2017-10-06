@@ -1,37 +1,13 @@
-environments:
-  contacts-deployment:
-    pipelines:
-      - frontend-package
-      - frontend-deploy
-
 pipelines:
-  frontend-compile:
+  integration:
     group: contacts-app
     materials:
-      mygit:  # this is the name of material
-        # says about type of material and url at once
-        git: https://github.com/ckaushik/contacts-ui.git
-    stages:
-      - build: # name of stage
-          jobs:
-            build: # name of the job
-              tasks:
-                - exec: # indicates type of task
-                   command: bash
-                   arguments:
-                     - "-c"
-                     - "yarn install --production && yarn build"
-              artifacts:
-                - build:
-                    source: build
-              resources:
-                - yarn
-  frontend-package:
-    group: contacts-app
-    materials:
-      compilation:
-        pipeline: frontend-compile
-        stage: build
+      frontend:
+        pipeline: frontend-package
+        stage: publish
+      api:
+        pipeline: api-package
+        stage: publish
       mygit:
         git: https://github.com/ckaushik/contacts-ui.git
     stages:
@@ -39,73 +15,10 @@ pipelines:
           jobs:
             build:
               tasks:
-                - fetch:
-                   pipeline: frontend-compile
-                   stage: build
-                   job: build
-                   source: build
                 - exec:
                    command: bash
                    arguments:
                      - "-c"
                      - "docker build -t contacts-ui:${GO_PIPELINE_LABEL} -f Dockerfile.build ."
-                - exec:
-                   command: bash
-                   arguments:
-                     - "-c"
-                     - "echo contacts-ui:${GO_PIPELINE_LABEL} > contacts-ui-version.txt"
-              artifacts:
-                - build:
-                    source: contacts-ui-version.txt
-              resources:
-                - docker
-      - publish:
-          jobs:
-            publish:
-              tasks:
-                - fetch:
-                   stage: build
-                   job: build
-                   is_file: yes
-                   source: contacts-ui-version.txt
-                - exec:
-                   command: bash
-                   arguments:
-                     - "-c"
-                     - "docker login --username ${DOCKERHUB_USER} --password ${DOCKERHUB_PASSWORD}"
-                - exec:
-                   command: bash
-                   arguments:
-                     - "-c"
-                     - "docker tag `cat contacts-ui-version.txt` ${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
-                - exec:
-                   command: bash
-                   arguments:
-                     - "-c"
-                     - "docker push ${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
-              resources:
-                - docker
-  frontend-deploy:
-    group: contacts-app
-    materials:
-      packaging:
-        pipeline: frontend-package
-        stage: publish
-    stages:
-      - deploy:
-          jobs:
-            build:
-              tasks:
-                - fetch:
-                   pipeline: frontend-package
-                   stage: build
-                   job: build
-                   is_file: yes
-                   source: contacts-ui-version.txt
-                - exec:
-                   command: bash
-                   arguments:
-                     - "-c"
-                     - "kubectl set image deployment/hello-minikube  hello-minikube=${DOCKERHUB_USER}/`cat contacts-ui-version.txt`"
               resources:
                 - deployer

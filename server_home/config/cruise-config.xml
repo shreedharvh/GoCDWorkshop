@@ -8,10 +8,13 @@
     <config-repo pluginId="yaml.config.plugin" id="contacts-api-config">
       <git url="https://github.com/ckaushik/contacts-api.git" />
     </config-repo>
+    <config-repo pluginId="yaml.config.plugin" id="contacts-ui-config">
+      <git url="https://github.com/ckaushik/contacts-ui.git" />
+    </config-repo>
   </config-repos>
   <pipelines group="contacts-app" />
   <environments>
-    <environment name="contacts-deployment">
+    <environment name="contacts-ui-docker">
       <environmentvariables>
         <variable name="DOCKERHUB_USER">
           <value>FIXME</value>
@@ -21,7 +24,7 @@
         </variable>
       </environmentvariables>
     </environment>
-    <environment name="contacts-api-deployment" >
+    <environment name="contacts-api-docker" >
       <environmentvariables>
         <variable name="DOCKERHUB_USER">
           <value>FIXME</value>
