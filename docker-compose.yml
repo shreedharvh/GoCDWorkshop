@@ -5,8 +5,6 @@ services:
     ports:
       - '8153:8153'
       - '8154:8154'
-    volumes:
-      - ./server_home:/godata
 
   go-agent-yarn:
     build:
